@@ -5,6 +5,7 @@ import {
   fetchAllProductsAsync,
   selectAllProducts,
   fetchProductsBySearchValueAsync,
+  fetchProductsBySortParamAsync,
   stateofProducts
 } from './ProductListSlice';
 import { Audio } from 'react-loader-spinner'
@@ -234,6 +235,11 @@ export default function ProductList() {
     
   }
 
+  const handleSort = (e,options)=>{
+    // console.log(filteroptions)
+    dispatch(fetchProductsBySortParamAsync([options.sort, options.order, filteroptions]))
+  }
+
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, [dispatch]);
@@ -385,7 +391,7 @@ export default function ProductList() {
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <p
-                              // onClick={e=>handleSort(e,option)}
+                              onClick={e=>handleSort(e,option)}
                               className={classNames(
                                 option.current
                                   ? 'font-medium text-gray-900'

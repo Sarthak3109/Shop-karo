@@ -204,29 +204,23 @@ function classNames(...classes) {
 export default function ProductList() {
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const products = useSelector(selectAllProducts);
+  const products = useSelector(selectAllProducts)
   const status  = useSelector(stateofProducts)
-  const [filteroptions, setfilteroptions] = useState([])
+  const [filteroptions, setfilteroptions] = useState({})
 
   const handleFilter = (e, searchParam)=>{
     if(e.target.checked){
-      const newarr = [...filteroptions, {searchParam : searchParam, value: e.target.value}]
+      const newarr = {...filteroptions, [searchParam] : e.target.value }
       setfilteroptions(prev => newarr)
       dispatch(fetchProductsBySearchValueAsync(newarr))
     }
     else
       {
-        const newoptions = [];
-        filteroptions.forEach(ele => {
-          if(ele.searchParam == searchParam && ele.value === e.target.value){
-
-          }
-          else{
-            newoptions.push(ele)
-            
-          }
+        const newoptions = filteroptions 
+        delete newoptions[searchParam]
+        setfilteroptions(prev => newoptions)
           dispatch(fetchProductsBySearchValueAsync(newoptions))
-        })
+      
         setfilteroptions(prev => newoptions)
        
       }
@@ -236,8 +230,9 @@ export default function ProductList() {
   }
 
   const handleSort = (e,options)=>{
-    // console.log(filteroptions)
-    dispatch(fetchProductsBySortParamAsync([options.sort, options.order, filteroptions]))
+    const newoptions = {...filteroptions, _sort : options.sort, _order : options.order}
+    setfilteroptions(newoptions)
+    dispatch(fetchProductsBySearchValueAsync(newoptions))
   }
 
   useEffect(() => {

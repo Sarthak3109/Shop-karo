@@ -15,6 +15,36 @@ export function fetchProducts() {
   );
 }
 
+export function fetchBrands() {
+  return new Promise((resolve) =>
+   { 
+    
+    const call = async()=>{
+      const data = await axios.get("http://localhost:8080/brands");
+      console.log("brands", data)
+      resolve({data})
+    }
+    call()
+  
+  }
+  );
+}
+
+export function fetchCategories() {
+  return new Promise((resolve) =>
+   { 
+    
+    const call = async()=>{
+      const data = await axios.get("http://localhost:8080/categories");
+
+      resolve({data})
+    }
+    call()
+  
+  }
+  );
+}
+
 
 export function fetchProductsBySearchParam(filter, sort, Page) {
   return new Promise((resolve) =>

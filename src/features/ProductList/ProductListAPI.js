@@ -18,11 +18,9 @@ export function fetchProducts() {
 export function fetchBrands() {
   return new Promise((resolve) =>
    { 
-    
-    const call = async()=>{
+      const call = async()=>{
       const data = await axios.get("http://localhost:8080/brands");
-      console.log("brands", data)
-      resolve({data})
+     resolve({data})
     }
     call()
   
@@ -45,6 +43,23 @@ export function fetchCategories() {
   );
 }
 
+
+
+export function fetchProductsById(id) {
+  return new Promise((resolve) =>
+   { 
+  
+    const call = async()=>{
+      console.log(`http://localhost:8080/products?id=${id}`)
+      const data = await axios.get(`http://localhost:8080/products?id=${id}`);
+      console.log("bhenchod", data)
+      resolve({data})
+    }
+    call()
+  
+  }
+  );
+}
 
 export function fetchProductsBySearchParam(filter, sort, Page) {
   return new Promise((resolve) =>

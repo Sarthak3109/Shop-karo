@@ -28,6 +28,8 @@ import {
   Squares2X2Icon,
 } from '@heroicons/react/20/solid';
 import { ITEMS_PER_PAGE } from '../../app/constants';
+import { selectUser } from '../auth/authSlice';
+
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
   { name: 'Price: Low to High', sort: 'price', order: 'asc', current: false },
@@ -52,6 +54,7 @@ export default function ProductList() {
   const totalItems = useSelector(totalNumberOfItems);
   const CATEGORIES_FROM_BACKEND = useSelector(selectAllCategories)
   const BRANDS_FROM_BACKEND = useSelector(selectAllBrands)
+  const user = useSelector(selectUser)
   const filters = [
     {
       id: 'category',
@@ -107,6 +110,7 @@ export default function ProductList() {
 
 
   useEffect(() => {
+    console.log(user)
     dispatch(fetchAllProductsAsync());
     dispatch(fetchAllBrandsAsync())
     dispatch(fetchAllCategoriesAsync())

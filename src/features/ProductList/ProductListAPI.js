@@ -50,9 +50,9 @@ export function fetchProductsById(id) {
    { 
   
     const call = async()=>{
-      console.log(`http://localhost:8080/products?id=${id}`)
+     
       const data = await axios.get(`http://localhost:8080/products?id=${id}`);
-      console.log("bhenchod", data)
+     
       resolve({data})
     }
     call()
@@ -77,14 +77,14 @@ export function fetchProductsBySearchParam(filter, sort, Page) {
       query += `${ele}=${sort[ele]}&`
 
 
-    console.log(Page)
+
     for(let ele in Page)
       query += `${ele}=${Page[ele]}&`
-    console.log(`http://localhost:8080/products?${query}`)
+
     const call = async()=>{
       const data = await axios.get(`http://localhost:8080/products?${query}`);
       const x = await   data.headers.get("X-Total-Count")
-      console.log(data)
+    
       resolve({data : {products:data.data, totalItems : x}})
     }
     call()

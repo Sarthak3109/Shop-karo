@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './features/Pages/Home';
-import LoginSlice from './features/auth/LoginSlice';
+import LoginSlice from './features/auth/authSlice';
 import './App.css';
 import LoginPage from './features/Pages/LoginPage';
 import SignupPage from './features/Pages/SignupPage';
@@ -11,12 +11,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
+import Protected from './features/auth/Protected';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element:<Protected><Home /></Protected> ,
   },
   {
     path: "/login",
@@ -28,11 +28,15 @@ const router = createBrowserRouter([
   },
   {
     path : "/cart",
-    element : <CartPage />
+    element : <Protected><CartPage /></Protected>
   },
   {
     path : "/product-detail/:id",
-    element : <ProductDetailPage />
+    element : <Protected><ProductDetailPage /></Protected>
+  },
+  {
+    path : "*",
+    element : <Login></Login>
   }
 
 ]);

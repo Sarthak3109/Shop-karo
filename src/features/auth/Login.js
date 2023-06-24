@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useForm } from "react-hook-form";
+
 const Login = () => {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center items-center bg-[white] absolute top-[50%] w-[100%] translate-y-[-50%] px-6 py-12 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -11,7 +14,7 @@ const Login = () => {
     </div>
 
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form className="space-y-6" action="#" method="POST">
+      <form className="space-y-6" action="#" method="POST" onSubmit = {(data)=>{console.log(data)}}>
         <div>
           <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
             Email address
@@ -20,6 +23,7 @@ const Login = () => {
             <input
               id="email"
               name="email"
+              {...register("example")}
               type="email"
               autoComplete="email"
               required
